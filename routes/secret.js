@@ -14,19 +14,29 @@ router.use(methodOverride(function(req, res){
       }
 }))
 
-router.route('/')
-    //GET all blobs
+router.route('/add/:keyperKey/:app')
+		//Add a secret
+		.post(function(req, res, next) {
+			var keyperKey = req.params.keyperKey;
+			var app = req.params.app;
+			var key = req.query.key;
+			console.log(key)
+			mongoose.model('Secret').create({keyper_key: keyperKey, app: app, key: key}, function(err, secret){
+				res.json('posted key=' + key + ' for application=' + app);
+			})
+		})
+		.get(function(req, res, next) {
+			res.json('Please make a post request...');
+		})
+
+router.route('/:keyperKey')
+    //GET all secrets
     .get(function(req, res, next) {
-			mongoose.model('Secret').find({}, function(err, secrets){
+			var keyperKey = req.params.keyperKey;
+			mongoose.model('Secret').find({keyper_key: keyperKey}, function(err, secrets){
 				res.json(secrets);
 			})
 		})
-		.post(function(req, res, next) {
-			var key = req.query.key;
-			console.log(key)
-			mongoose.model('Secret').create({key: key}, function(err, secret){
-				console.log('posted')
-			})
-		})
+
 
 module.exports = router;
