@@ -1,0 +1,36 @@
+{
+  "name": "Keyper",
+  "version": "0.0.1",
+  "description": "Central storage for your secrets, etc.",
+  "main": "lib.js",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "method-override": "^2.3.5",
+    "restler": "^3.3.0",
+    "mongoose": "^4.1.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node lib.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BrianNewsom/Keyper.git"
+  },
+  "keywords": [
+    "Keys",
+    "secret",
+    "clientId",
+    "storage",
+    "mongo"
+  ],
+  "author": "Brian Newsom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrianNewsom/Keyper/issues"
+  },
+  "homepage": "https://github.com/BrianNewsom/Keyper"
+}
