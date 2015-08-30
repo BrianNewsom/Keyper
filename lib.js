@@ -1,6 +1,9 @@
 // File to be used in npm, accesses all data.
 
-var url = 'http://104.131.31.144:3000';
+var protocol = 'http';
+var ip = '104.131.31.144';
+var port = '3000';
+var url = protocol + '://' + ip + ':' + port;
 var secretURL = url + '/secret'
 
 var rest = require('restler');
