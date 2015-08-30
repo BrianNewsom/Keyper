@@ -2,7 +2,8 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'), //mongo connection
     bodyParser = require('body-parser'), //parses information from POST
-    methodOverride = require('method-override'); //used to manipulate POST
+    methodOverride = require('method-override'),
+		winston = require('winston'); 
 
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(methodOverride(function(req, res){
@@ -17,6 +18,7 @@ router.use(methodOverride(function(req, res){
 router.route('/add/:keyperKey/:app')
 		//Add a secret
 		.post(function(req, res, next) {
+		  winston.info('POST ' + req.url); 
 			var keyperKey = req.params.keyperKey;
 			var app = req.params.app;
 			var key = req.query.key;
@@ -26,12 +28,14 @@ router.route('/add/:keyperKey/:app')
 			})
 		})
 		.get(function(req, res, next) {
+			winston.info('GET ' + req.url);
 			res.json('Please make a post request...');
 		})
 
 router.route('/:keyperKey')
     //GET all secrets
     .get(function(req, res, next) {
+			winston.info('GET ' + req.url);
 			var keyperKey = req.params.keyperKey;
 			mongoose.model('Secret').find({keyper_key: keyperKey}, function(err, secrets){
 				

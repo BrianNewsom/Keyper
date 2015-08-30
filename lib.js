@@ -1,13 +1,10 @@
 // File to be used in npm, accesses all data.
-
-var protocol = 'http';
-var ip = '104.131.31.144';
-var port = '3000';
-var url = protocol + '://' + ip + ':' + port;
-var secretURL = url + '/secret'
-
 var rest = require('restler');
 var _ = require('underscore');
+var config = require('./config/config');
+
+var url = config.url();
+var secretURL = url + '/secret'
 
 var Keyper = {};
 
@@ -36,14 +33,5 @@ Keyper.add = function(keyperKey, app, key, cb) {
 }
 
 
-/*
-Keyper.add('12345', 'google', 'this_is_a_google_key', function(res){
-	console.log(res);
-})
-
-Keyper.get('12345', function(data){
-	console.log(data);
-})
-*/
 
 module.exports = Keyper;
