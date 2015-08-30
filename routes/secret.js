@@ -34,9 +34,24 @@ router.route('/:keyperKey')
     .get(function(req, res, next) {
 			var keyperKey = req.params.keyperKey;
 			mongoose.model('Secret').find({keyper_key: keyperKey}, function(err, secrets){
-				res.json(secrets);
+				
+				res.json(transform(secrets));
 			})
 		})
 
+function transform(secrets) {
+	// We want our data as an object formatted around application for an individual key
+	var out = {};
+	// For safe access verify we have data
+	if (secrets[0]) {
+	// Store keyper credentials just in case
+		out['keyper'] = secrets[0].keyper_key;
+		for (var i in secrets) {
+			s = secrets[i];
+			out[s.app] = s.key;
+		}
+	}
+	return out
+}
 
 module.exports = router;
