@@ -9,6 +9,7 @@ all of the API keys you care about.
 This module contains both the server and the access library.  These will likely be separated soon.
 
 ## Usage
+
 ### Adding Your First Key
 ```
 var keyper = require('keyper');
@@ -25,6 +26,13 @@ We recommend storing your 'keyper key' in environment variables.  Add the follow
 export KEYPER_KEY='outputted_keyper_key'
 ```
 
+### Adding Another Key
+```
+keyper.add(process.env['KEYPER_KEY'], 'soundcloud', 'this_is_your_soundcloud_api_key', function(res) {
+	console.log(res);
+})
+```
+
 ### Retrieving Your Keys
 ```
 keyper.get(process.env['KEYPER_KEY'], function(keys) {
@@ -32,6 +40,7 @@ keyper.get(process.env['KEYPER_KEY'], function(keys) {
 	console.log('My soundcloud key is ' + keys.soundcloud);
 	
 })
+```
 
 ### Removing A Key
 ```
@@ -41,6 +50,7 @@ keyper.get(process.env['KEYPER_KEY'], 'soundcloud', function(res) {
 ```
 
 ## Contributing
+
 1. Fork it
 2. Commit changes
-3. Pull request it
+3. Pull request your fork
