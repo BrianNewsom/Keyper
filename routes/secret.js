@@ -18,7 +18,7 @@ router.use(methodOverride(function(req, res){
 router.route('/add/:keyperKey/:app')
 		//Add a secret
 		.post(function(req, res, next) {
-		  winston.info('POST ' + req.url); 
+		  winston.info('POST SECRET ' + req.url); 
 			var keyperKey = req.params.keyperKey;
 			var app = req.params.app;
 			var key = req.query.key;
@@ -28,14 +28,14 @@ router.route('/add/:keyperKey/:app')
 			})
 		})
 		.get(function(req, res, next) {
-			winston.info('GET ' + req.url);
+			winston.info('GET SECRET ' + req.url);
 			res.json('Please make a post request...');
 		})
 
 router.route('/:keyperKey')
     //GET all secrets
     .get(function(req, res, next) {
-			winston.info('GET ' + req.url);
+			winston.info('GET SECRET ' + req.url);
 			var keyperKey = req.params.keyperKey;
 			mongoose.model('Secret').find({keyper_key: keyperKey}, function(err, secrets){
 				

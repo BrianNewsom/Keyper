@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser'); 
 var methodOverride = require('method-override'); //used to manipulate POST
 var winston = require('winston');
+var moment = require('moment');
 var config = require('./config/config');
 var db = require('./config/db');
 
@@ -12,6 +13,12 @@ var router = express.Router();
 var secrets = require('./routes/secret');
 var other = require('./routes/other');
 var secret = require('./models/Secret');
+
+// Set up logging throughout project
+var now = moment();
+var formatted = now.format('YYYY-MM-DD');
+
+winston.add(winston.transports.File, { filename: 'logs/' + formatted + '.log' });
 
 // Connect to mongodb
 var connect = function () {

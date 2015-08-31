@@ -2,6 +2,7 @@
 var rest = require('restler');
 var _ = require('underscore');
 var config = require('./config/config');
+var uuid = require('uuid');
 
 var url = config.url();
 var secretURL = url + '/secret'
@@ -21,6 +22,11 @@ Keyper.get = function(keyperKey, cb) {
 }
 
 Keyper.add = function(keyperKey, app, key, cb) {
+	// Add a key to your Keyper.  Pass empty string for keyperKey to generate new key
+	if(!keyperKey) {
+		keyperKey = Keyper.generateKey();
+	}
+
 	var queryURL = secretURL + '/add/' + keyperKey + '/' + app + '?key=' + key;
 	
 	rest.post(queryURL)
@@ -32,6 +38,10 @@ Keyper.add = function(keyperKey, app, key, cb) {
 		})
 }
 
-
+Keyper.generateKey = function() {
+	key = uuid.v4();
+	console.log('Your key is: ' + key + '. Store this somewhere.');
+	return key;
+}
 
 module.exports = Keyper;
