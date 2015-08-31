@@ -16,7 +16,7 @@ var secret = require('./models/Secret');
 // Connect to mongodb
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
-  mongoose.connect('mongodb://' + db.host + '/' + db.name, options);
+  mongoose.connect(db.url(), options);
 	winston.info('Connected to db successfully');
 };
 
