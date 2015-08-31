@@ -21,6 +21,19 @@ Keyper.get = function(keyperKey, cb) {
 	})
 }
 
+Keyper.remove = function(keyperKey, app, cb) {
+	var queryURL = secretURL + '/remove/' + keyperKey + '/' + app;
+	
+	rest.post(queryURL)
+		.on('complete', function(result) {
+			cb(result);
+		})
+		.on('error', function(err){
+			console.log(err);
+		})
+
+}
+
 Keyper.add = function(keyperKey, app, key, cb) {
 	// Add a key to your Keyper.  Pass empty string for keyperKey to generate new key
 	if(!keyperKey) {

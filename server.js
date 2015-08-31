@@ -23,8 +23,14 @@ winston.add(winston.transports.File, { filename: 'logs/' + formatted + '.log' })
 // Connect to mongodb
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
-  mongoose.connect(db.url(), options);
-	winston.info('Connected to db successfully');
+	if (process.env['KEYPER_ENV'] == "prod"){
+		mongoose.connect(db.prod.url(), options);
+		winston.info('Connected to PROD db successfully');
+	}
+	else{
+		mongoose.connect(db.test.url(), options);
+		winston.info('Connected to TEST db successfully');
+	}
 };
 
 connect();

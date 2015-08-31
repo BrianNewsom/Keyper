@@ -22,8 +22,8 @@ router.route('/add/:keyperKey/:app')
 			var keyperKey = req.params.keyperKey;
 			var app = req.params.app;
 			var key = req.query.key;
-			console.log(key)
 			mongoose.model('Secret').create({keyper_key: keyperKey, app: app, key: key}, function(err, secret){
+				winston.info('Successfully added key');
 				res.json('posted key=' + key + ' for application=' + app);
 			})
 		})
@@ -32,13 +32,24 @@ router.route('/add/:keyperKey/:app')
 			res.json('Please make a post request...');
 		})
 
+router.route('/remove/:keyperKey/:app')
+		.post(function(req, res, next) {
+		  winston.info('POST SECRET ' + req.url); 
+			var keyperKey = req.params.keyperKey;
+			var app = req.params.app;
+			mongoose.model('Secret').find({keyper_key: keyperKey, app: app}).remove().exec(function(err, data){
+				winston.info('Successfully removed key');
+				res.json('Removed application=' + app);
+			});
+		})
+
 router.route('/:keyperKey')
     //GET all secrets
     .get(function(req, res, next) {
 			winston.info('GET SECRET ' + req.url);
 			var keyperKey = req.params.keyperKey;
 			mongoose.model('Secret').find({keyper_key: keyperKey}, function(err, secrets){
-				
+				winston.info('Successfully queried secrets');
 				res.json(transform(secrets));
 			})
 		})
