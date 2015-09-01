@@ -22,7 +22,7 @@ winston.add(winston.transports.File, { filename: 'logs/' + formatted + '.log' })
 
 // Connect to mongodb
 var connect = function () {
-  var options = { server: { socketOptions: { keepAlive: 1 } } };
+	var options = { server: { socketOptions: { keepAlive: 1 } } };
 	if (process.env['KEYPER_ENV'] == "prod"){
 		mongoose.connect(db.prod.url(), options);
 		winston.info('Connected to PROD db successfully');
@@ -39,7 +39,7 @@ mongoose.connection.on('error', winston.error);
 mongoose.connection.on('disconnected', connect);
 
 app.use('/secret', secrets);
-app.use('*', other); 
+app.use('*', other);
 
 // Catch all unhandled routes
 app.listen(port);
