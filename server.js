@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override'); //used to manipulate POST
 var winston = require('winston');
 var moment = require('moment');
+var jade = require('jade');
 var config = require('./config/config');
 var db = require('./config/db');
 
@@ -38,8 +39,13 @@ connect();
 mongoose.connection.on('error', winston.error);
 mongoose.connection.on('disconnected', connect);
 
+// Use jade for templating
+app.set('view engine', 'jade');
+app.set('views', 'public/templates');
+
+// Routes
 app.use('/secret', secrets);
-app.use('*', other);
+app.use('/', other);
 
 // Catch all unhandled routes
 app.listen(port);
